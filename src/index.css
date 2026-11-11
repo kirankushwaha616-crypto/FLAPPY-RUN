@@ -1,0 +1,250 @@
+/*
+ * Tailwind v4 entry: config lives here, with no tailwind.config.js or PostCSS plugin.
+ * - Keep every @import in this top block, above @theme and the rest of the file. Install an
+ *   npm package before @importing its CSS. Never @import a remote URL (web fonts, CDN CSS): the
+ *   build resolves @import from the filesystem. Load those with a <link> in the head() of
+ *   src/routes/__root.tsx and name the family in a --font-* token in @theme inline below.
+ */
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system definition.
+ *
+ * The design lives in this file: oklch color tokens on the shadcn variables
+ * (--background, --foreground, --primary, --secondary, --muted, --accent, ...) plus
+ * new tokens as needed, font tokens, and custom styles and animations.
+ *
+ * The @theme inline block maps CSS custom properties to Tailwind utility
+ * classes (e.g. --color-primary -> bg-primary, text-primary).
+ *
+ * The :root and .dark blocks define the actual color values using oklch.
+ * All colors MUST use oklch format.
+ *
+ * To add a new semantic color:
+ * 1. Add the variable to :root (light value) and .dark (dark value)
+ * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ */
+
+@theme inline {
+  --font-display: "Lilita One", "Baloo 2", system-ui, sans-serif;
+  --font-sans: "Baloo 2", system-ui, sans-serif;
+  --color-coin: var(--coin);
+  --color-coin-deep: var(--coin-deep);
+  --color-outline: var(--outline);
+  --color-primary-deep: var(--primary-deep);
+  --color-secondary-deep: var(--secondary-deep);
+  --color-accent-deep: var(--accent-deep);
+  --color-destructive-deep: var(--destructive-deep);
+  --color-panel: var(--panel);
+  --color-panel-inset: var(--panel-inset);
+  --color-letterbox: var(--letterbox);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+
+:root {
+  --radius: 1.25rem;
+  /* Letterbox around the 16:9 stage */
+  --letterbox: oklch(0.17 0.035 245);
+  --background: oklch(0.17 0.035 245);
+  --foreground: oklch(0.98 0.01 95);
+
+  /* Cartoon panel: warm cream with thick cocoa outline */
+  --panel: oklch(0.97 0.035 92);
+  --panel-inset: oklch(0.92 0.05 88);
+  --outline: oklch(0.27 0.05 45);
+  --card: oklch(0.97 0.035 92);
+  --card-foreground: oklch(0.27 0.05 45);
+  --popover: oklch(0.97 0.035 92);
+  --popover-foreground: oklch(0.27 0.05 45);
+
+  /* Sunny play button */
+  --primary: oklch(0.84 0.17 78);
+  --primary-deep: oklch(0.64 0.16 55);
+  --primary-foreground: oklch(0.27 0.05 45);
+
+  /* Grass green */
+  --secondary: oklch(0.72 0.19 140);
+  --secondary-deep: oklch(0.5 0.15 145);
+  --secondary-foreground: oklch(0.99 0.01 120);
+
+  /* Sky blue */
+  --accent: oklch(0.72 0.14 228);
+  --accent-deep: oklch(0.5 0.14 245);
+  --accent-foreground: oklch(0.99 0.01 230);
+
+  --muted: oklch(0.9 0.04 88);
+  --muted-foreground: oklch(0.48 0.05 50);
+
+  --destructive: oklch(0.66 0.21 25);
+  --destructive-deep: oklch(0.48 0.18 25);
+  --destructive-foreground: oklch(0.99 0.01 30);
+
+  --coin: oklch(0.86 0.17 88);
+  --coin-deep: oklch(0.62 0.15 65);
+
+  --border: oklch(0.27 0.05 45);
+  --input: oklch(0.85 0.04 85);
+  --ring: oklch(0.72 0.14 228);
+
+  --chart-1: oklch(0.84 0.17 78);
+  --chart-2: oklch(0.72 0.19 140);
+  --chart-3: oklch(0.72 0.14 228);
+  --chart-4: oklch(0.66 0.21 25);
+  --chart-5: oklch(0.86 0.17 88);
+  --sidebar: oklch(0.97 0.035 92);
+  --sidebar-foreground: oklch(0.27 0.05 45);
+  --sidebar-primary: oklch(0.84 0.17 78);
+  --sidebar-primary-foreground: oklch(0.27 0.05 45);
+  --sidebar-accent: oklch(0.92 0.05 88);
+  --sidebar-accent-foreground: oklch(0.27 0.05 45);
+  --sidebar-border: oklch(0.27 0.05 45);
+  --sidebar-ring: oklch(0.72 0.14 228);
+
+  --gradient-title: linear-gradient(180deg, oklch(0.95 0.12 95) 0%, oklch(0.84 0.17 78) 55%, oklch(0.72 0.17 60) 100%);
+  --gradient-scrim: linear-gradient(180deg, oklch(0.15 0.04 245 / 0) 0%, oklch(0.15 0.04 245 / 0.55) 100%);
+  --scrim: oklch(0.15 0.04 245 / 0.55);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+  body {
+    background-color: var(--color-letterbox);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Chunky 3D cartoon button: colored face + darker "lip" underneath */
+@utility btn-game {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+  border: 3px solid var(--outline);
+  border-radius: 1rem;
+  box-shadow: 0 5px 0 0 var(--btn-lip, var(--outline));
+  transition: transform 90ms ease, box-shadow 90ms ease, filter 120ms ease;
+  cursor: pointer;
+  &:hover {
+    filter: brightness(1.06);
+  }
+  &:active {
+    transform: translateY(4px);
+    box-shadow: 0 1px 0 0 var(--btn-lip, var(--outline));
+  }
+  &:disabled {
+    cursor: not-allowed;
+    filter: grayscale(0.6) brightness(0.9);
+    transform: none;
+  }
+}
+
+@utility game-panel {
+  background: var(--panel);
+  color: var(--outline);
+  border: 4px solid var(--outline);
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 0 0 var(--outline);
+}
+
+/* Outlined cartoon lettering for titles and score */
+@utility text-stroke {
+  -webkit-text-stroke: 0.14em var(--outline);
+  paint-order: stroke fill;
+}
+@utility text-stroke-thin {
+  -webkit-text-stroke: 0.09em var(--outline);
+  paint-order: stroke fill;
+}
+
+@utility title-fill {
+  background: var(--gradient-title);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes face-bob {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-10px) rotate(3deg); }
+}
+@keyframes pop-in {
+  0% { opacity: 0; transform: scale(0.85) translateY(10px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes hint-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.75; transform: scale(0.97); }
+}
+@keyframes score-pop {
+  0% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+@utility animate-face-bob { animation: face-bob 2.4s ease-in-out infinite; }
+@utility animate-pop-in { animation: pop-in 220ms cubic-bezier(0.2, 0.9, 0.3, 1.2) both; }
+@utility animate-hint-pulse { animation: hint-pulse 1.4s ease-in-out infinite; }
+@utility animate-score-pop { animation: score-pop 180ms ease-out; }
+
+/* Thin scrollbars inside shop grids */
+.game-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--outline) transparent;
+}
